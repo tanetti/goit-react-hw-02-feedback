@@ -7,9 +7,31 @@ export const theme = Object.freeze({
     darkBG: '#ddd',
     lightBG: '#eee',
     whiteBG: '#fff',
+
+    goodBG: '#d6ffd6',
+    neutralBG: '#ffeed6',
+    badBG: '#ffd6d6',
+
+    goodNorm: '#1a913a',
+    neutralNorm: '#d6a231',
+    badNorm: '#e32424',
+
+    goodHover: '#26753b',
+    neutralHover: '#ad780e',
+    badHover: '#b30e0e',
+
+    valueLabelBG: '#cccccc80',
   },
   space: [0, '2px', '4px', '8px', '16px', '32px', '64px', '128px', '256px'],
-  sizes: {},
+  sizes: {
+    feedbackButtonMobile: '70px',
+    feedbackButton: '100px',
+
+    valueLabelMobile: '26px',
+    valueLabel: '34px',
+
+    valueLabelOfset: '-5px',
+  },
   fontSizes: {
     xs: '12px',
     s: '14px',
@@ -45,5 +67,8 @@ export const theme = Object.freeze({
     desctopMax: '1679.98px',
     bigMin: '1680px',
   },
-  transitions: {},
+  transitions: {
+    color: 'color 250ms ease-in-out',
+    transform: 'transform 250ms ease-in-out',
+  },
 });
