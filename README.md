@@ -1,1 +1,1 @@
-# Create React App Template v0.1.1
+# GoIT React HW 02 (Feedback)
