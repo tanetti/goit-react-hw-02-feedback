@@ -1,19 +1,13 @@
-import { GlobalStyles } from './GlobalStyles';
+import { GlobalStyles } from 'components/GlobalStyles';
+import { PageTitle } from 'components/PageTitle/PageTitle';
+import { FeedbackSection } from 'components/FeedbackSection/FeedbackSection';
 
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      React template
+    <main>
       <GlobalStyles />
-    </div>
+      <PageTitle title="Feedback" />
+      <FeedbackSection title="Please leave feedback" />
+    </main>
   );
 };
