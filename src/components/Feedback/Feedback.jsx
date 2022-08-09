@@ -13,18 +13,21 @@ export class Feedback extends Component {
   feedbackButtonClickHandler = ({ currentTarget: { name } }) =>
     this.setState(prevState => ({ [name]: prevState[name] + INCREMENT_VALUE }));
 
+  calculateTotalFeedbackCount = () =>
+    Object.values(this.state).reduce((acc, value) => acc + value, 0);
+
+  calculatePercentageOfFeedbackTypes = totalFeedbackCount =>
+    Object.fromEntries(
+      Object.entries(this.state).map(([key, value]) => [
+        key,
+        Math.round((value * 100) / totalFeedbackCount) || 0,
+      ])
+    );
+
   render() {
-    const total = Object.values(this.state).reduce(
-      (acc, value) => acc + value,
-      0
-    );
-
-    const percentages = {};
-
-    Object.keys(this.state).map(
-      key =>
-        (percentages[key] = Math.round((this.state[key] * 100) / total) || 0)
-    );
+    const totalFeedbackCount = this.calculateTotalFeedbackCount();
+    const percentageOfFeedbackTypes =
+      this.calculatePercentageOfFeedbackTypes(totalFeedbackCount);
 
     return (
       <>
@@ -38,8 +41,11 @@ export class Feedback extends Component {
           ))}
         </FeedbackButtonList>
 
-        {total > 0 && (
-          <FeedbackStatistics percentages={percentages} total={total} />
+        {totalFeedbackCount > 0 && (
+          <FeedbackStatistics
+            percentageOfFeedbackTypes={percentageOfFeedbackTypes}
+            totalFeedbackCount={totalFeedbackCount}
+          />
         )}
       </>
     );

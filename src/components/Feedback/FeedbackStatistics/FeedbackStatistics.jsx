@@ -1,21 +1,38 @@
 import PropTypes from 'prop-types';
+import { Chart } from 'react-google-charts';
+import { chartOptions } from 'constants/chartOptions';
 
-export const FeedbackStatistics = ({ percentages, total }) => {
+export const FeedbackStatistics = ({
+  percentageOfFeedbackTypes,
+  totalFeedbackCount,
+}) => {
+  const data = () => {
+    return [
+      ['Type of feedback', 'Feedback quantity'],
+      ...Object.entries(percentageOfFeedbackTypes).map(([key, value]) => [
+        key[0].toUpperCase() + key.substring(1) + ' feedbacks',
+        value,
+      ]),
+    ];
+  };
+
   return (
-    <div>
-      {Object.entries(percentages).map(([key, value]) => (
-        <div key={key}>{`${key}: ${value}%`}</div>
-      ))}
-      <div>{`Total feedbacks: ${total}`}</div>
-    </div>
+    // <div>
+    //   {Object.entries(percentageOfFeedbackTypes).map(([key, value]) => (
+    //     <div key={key}>{`${key}: ${value}%`}</div>
+    //   ))}
+    //   <div>{`Total feedbacks: ${totalFeedbackCount}`}</div>
+    // </div>
+
+    <Chart chartType="PieChart" data={data()} options={chartOptions} />
   );
 };
 
 FeedbackStatistics.propTypes = {
-  percentages: PropTypes.exact({
+  percentageOfFeedbackTypes: PropTypes.exact({
     good: PropTypes.number.isRequired,
     neutral: PropTypes.number.isRequired,
     bad: PropTypes.number.isRequired,
   }).isRequired,
-  total: PropTypes.number.isRequired,
+  totalFeedbackCount: PropTypes.number.isRequired,
 };

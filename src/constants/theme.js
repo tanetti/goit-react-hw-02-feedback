@@ -31,6 +31,9 @@ export const theme = Object.freeze({
     valueLabel: '34px',
 
     valueLabelOfset: '-5px',
+
+    statisticsChartMobile: '400px',
+    statisticsChart: '300px',
   },
   fontSizes: {
     xs: '12px',
