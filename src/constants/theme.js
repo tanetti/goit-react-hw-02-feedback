@@ -32,7 +32,6 @@ export const theme = Object.freeze({
 
     valueLabelOfset: '-5px',
 
-    statisticsChartMobile: '400px',
     statisticsChart: '300px',
   },
   fontSizes: {
@@ -42,6 +41,7 @@ export const theme = Object.freeze({
     l: '22px',
     xl: '26px',
     xxl: '32px',
+    xxxl: '42px',
   },
   fontWeights: {
     normal: 400,
@@ -73,5 +73,7 @@ export const theme = Object.freeze({
   transitions: {
     color: 'color 250ms ease-in-out',
     transform: 'transform 250ms ease-in-out',
+    opacity: 'opacity 500ms ease-in-out',
+    visibility: 'visibility 500ms ease-in-out',
   },
 });

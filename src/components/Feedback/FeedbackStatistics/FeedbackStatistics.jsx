@@ -1,34 +1,65 @@
 import PropTypes from 'prop-types';
-import { Chart } from 'react-google-charts';
+import { Component } from 'react';
+import {
+  StyledChart,
+  FeedbackStatisticsBox,
+  StatisticsTitle,
+  StatisticsTotalHead,
+  StatisticsTotalValue,
+} from './FeedbackStatistics.styled';
 import { chartOptions } from 'constants/chartOptions';
 
-export const FeedbackStatistics = ({
-  percentageOfFeedbackTypes,
-  totalFeedbackCount,
-}) => {
-  const data = () => {
-    return [
-      ['Type of feedback', 'Feedback quantity'],
-      ...Object.entries(percentageOfFeedbackTypes).map(([key, value]) => [
-        key[0].toUpperCase() + key.substring(1) + ' feedbacks',
-        value,
-      ]),
-    ];
+export class FeedbackStatistics extends Component {
+  state = {
+    shouldStatisticsBoxShown: false,
   };
 
-  return (
-    // <div>
-    //   {Object.entries(percentageOfFeedbackTypes).map(([key, value]) => (
-    //     <div key={key}>{`${key}: ${value}%`}</div>
-    //   ))}
-    //   <div>{`Total feedbacks: ${totalFeedbackCount}`}</div>
-    // </div>
+  prepareDataForChart = () => [
+    ['Type of feedback', 'Feedback quantity'],
+    ...Object.entries(this.props.currentFeedbacsState).map(([key, value]) => [
+      key[0].toUpperCase() + key.substring(1) + ' feedbacks',
+      value,
+    ]),
+  ];
 
-    <Chart chartType="PieChart" data={data()} options={chartOptions} />
-  );
-};
+  findTopFeedbackTypeFromPercentage = () =>
+    Object.entries(this.props.percentageOfFeedbackTypes).sort(
+      (a, b) => b[1] - a[1]
+    )[0][0];
+
+  setStatisticsBoxShown = () =>
+    this.setState({ shouldStatisticsBoxShown: true });
+
+  render() {
+    const chartData = this.prepareDataForChart();
+    const topFeedbackType = this.findTopFeedbackTypeFromPercentage();
+
+    return (
+      <FeedbackStatisticsBox shouldShown={this.state.shouldStatisticsBoxShown}>
+        <StatisticsTitle>Feedback statistics:</StatisticsTitle>
+        <StyledChart
+          chartType="PieChart"
+          data={chartData}
+          options={chartOptions}
+          onLoad={this.setStatisticsBoxShown}
+        />
+        <StatisticsTotalHead>
+          Total:
+          <StatisticsTotalValue topFeedbackType={topFeedbackType}>
+            {this.props.totalFeedbackCount}
+          </StatisticsTotalValue>
+        </StatisticsTotalHead>
+      </FeedbackStatisticsBox>
+    );
+  }
+}
 
 FeedbackStatistics.propTypes = {
+  currentFeedbacsState: PropTypes.exact({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }).isRequired,
   percentageOfFeedbackTypes: PropTypes.exact({
     good: PropTypes.number.isRequired,
     neutral: PropTypes.number.isRequired,

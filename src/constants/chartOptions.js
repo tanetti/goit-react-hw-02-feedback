@@ -23,5 +23,8 @@ export const chartOptions = Object.freeze({
     color: theme.colors.whiteText,
     fontSize: parseInt(theme.fontSizes.xs),
   },
-  tooltip: { text: 'percentage' },
+  pieStartAngle: 180,
+  tooltip: {
+    showColorCode: true,
+  },
 });

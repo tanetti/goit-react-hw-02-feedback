@@ -26,6 +26,7 @@ export class Feedback extends Component {
 
   render() {
     const totalFeedbackCount = this.calculateTotalFeedbackCount();
+
     const percentageOfFeedbackTypes =
       this.calculatePercentageOfFeedbackTypes(totalFeedbackCount);
 
@@ -43,8 +44,9 @@ export class Feedback extends Component {
 
         {totalFeedbackCount > 0 && (
           <FeedbackStatistics
-            percentageOfFeedbackTypes={percentageOfFeedbackTypes}
             totalFeedbackCount={totalFeedbackCount}
+            currentFeedbacsState={this.state}
+            percentageOfFeedbackTypes={percentageOfFeedbackTypes}
           />
         )}
       </>
